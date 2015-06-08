@@ -171,7 +171,7 @@ class postfix::server (
   } else {
     $package_name = $postfix_package
   }
-  package { $package_name: ensure => $postfix_package_ensure, alias => 'postfix' }
+  package { $package_name: ensure => $postfix_package_ensure, alias => 'pzmpostfix' }
 
   service { 'postfix':
     require   => Package[$package_name],
