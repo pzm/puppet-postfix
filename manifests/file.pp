@@ -43,7 +43,6 @@ define postfix::file (
     content => $content,
     source  => $source,
     notify  => Service['postfix'],
-    require => Package[$::postfix::params::postfix_package],
   }
 
 }
