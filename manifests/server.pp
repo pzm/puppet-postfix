@@ -165,19 +165,8 @@ class postfix::server (
     $filesuffix = ''
   }
 
-  # Main package and service it provides
-  if $mysql {
-    $package_name = $postfix_mysql_package
-  } else {
-    $package_name = $postfix_package
-  }
-
-
-
-  package { $package_name: ensure => $postfix_package_ensure}
 
   service { 'postfix':
-    require   => Package[$package_name],
     enable    => true,
     ensure    => running,
     hasstatus => true,
@@ -187,12 +176,10 @@ class postfix::server (
   file { "${config_directory}/master.cf":
     content => template("postfix/master.cf${filesuffix}.erb"),
     notify  => Service['postfix'],
-    require => Package[$package_name],
   }
   file { "${config_directory}/main.cf":
     content => template("postfix/main.cf${filesuffix}.erb"),
     notify  => Service['postfix'],
-    require => Package[$package_name],
   }
 
   # Optional Spamassassin setup (using spampd)
